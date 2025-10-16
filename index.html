@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Advanced Rudraksha Calculator — Vedic Astrology</title>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card: rgba(255, 255, 255, 0.95);
+      --accent: #764ba2;
+      --secondary: #667eea;
+      --muted: #6b7280;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 24px;
+      animation: gradientShift 15s ease infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+      animation: fadeInDown 0.8s ease;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+    
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+    
+    .result-card {
+      background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+      border-left: 4px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .result-card::before {
+      content: '🕉️';
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 48px;
+      opacity: 0.1;
+    }
+    
+    .result-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    
+    .result-content {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 16px 0;
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .rudraksha-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .buy-now-btn {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .buy-now-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(16, 185, 129, 0.3);
+    }
+    
+    .steps-container {
+      margin-top: 20px;
+      padding: 16px;
+      background: #fef3c7;
+      border-radius: 8px;
+      border-left: 4px solid var(--warning);
+    }
+    
+    .steps-container h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #92400e;
+    }
+    
+    .step-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 14px;
+      color: #78350f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .step-item:last-child {
+      border-bottom: none;
+    }
+    
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--warning);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .compatibility-score {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 12px;
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-radius: 8px;
+    }
+    
+    .score-label {
+      font-weight: 600;
+      color: #065f46;
+    }
+    
+    .score-bar {
+      flex: 1;
+      height: 8px;
+      background: #ecfdf5;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .score-fill {
+      height: 100%;
+      background: var(--success);
+      transition: width 1s ease;
+    }
+    
+    .score-value {
+      font-weight: 700;
+      color: #059669;
+      font-size: 18px;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .info-item {
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .loading.active {
+      display: block;
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+    }
+    
+    .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background: #1f2937;
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .error-message {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🔮 Rudraksha Calculator</h1>
+      <div class="subtitle">Simple Vedic Astrology & Numerology Based Recommendation</div>
+    </header>
+
+    <div class="card">
+      <form id="userForm">
+        <div class="row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" placeholder="Enter your full name" required />
+            <div id="nameError" class="error-message">Please enter a valid name</div>
+          </div>
+          <div class="form-group">
+            <label for="purpose">
+              Primary Purpose
+              <span class="tooltip">ⓘ
+                <span class="tooltip-text">Select your main intention for wearing Rudraksha</span>
+              </span>
+            </label>
+            <select id="purpose">
+              <option value="GENERAL">General Well-being</option>
+              <option value="WEALTH">Wealth & Prosperity</option>
+              <option value="CAREER">Career Growth</option>
+              <option value="HEALTH">Health & Vitality</option>
+              <option value="EDUCATION">Education & Knowledge</option>
+              <option value="RELATIONSHIPS">Love & Relationships</option>
+              <option value="SPIRITUAL">Spiritual Growth</option>
+              <option value="PROTECTION">Protection & Safety</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input id="dob" type="date" required />
+            <div id="dobError" class="error-message">Please enter a valid date of birth</div>
+          </div>
+          <div class="form-group">
+            <label for="time">Time of Birth</label>
+            <input id="time" type="time" required />
+            <div id="timeError" class="error-message">Please enter a valid time of birth</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="place">Birth Place</label>
+            <input id="place" placeholder="City, Country" />
+            <div id="placeError" class="error-message">Please enter a valid birth place</div>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row" style="gap:8px;">
+          <button type="submit" class="btn-primary">Calculate Rudraksha</button>
+          <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+        </div>
+      </form>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p style="margin-top:12px; color:var(--muted)">Analyzing cosmic patterns...</p>
+      </div>
+    </div>
+
+    <div id="resultContainer" style="display:none;">
+      <div class="card result-card">
+        <h3 class="result-title">Your Recommended Rudraksha</h3>
+        <div class="result-content" id="mainResult"></div>
+        
+        <div class="compatibility-score">
+          <span class="score-label">Compatibility:</span>
+          <div class="score-bar">
+            <div class="score-fill" id="scoreFill"></div>
+          </div>
+          <span class="score-value" id="scoreValue">0%</span>
+        </div>
+
+        <div class="info-grid" id="infoGrid"></div>
+        
+        <div class="steps-container" id="stepsContainer" style="display:none;">
+          <h4>Calculation Process</h4>
+          <div id="stepsContent"></div>
+        </div>
+
+        <div style="margin-top:20px; padding:16px; background:#f0f9ff; border-radius:8px;">
+          <h4 style="color:#0369a1; margin-bottom:8px;">Additional Recommendations</h4>
+          <div id="additionalInfo"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simplified Rudraksha Calculator System
+    class RudrakshaCalculator {
+      constructor() {
+        this.planetMap = {
+          sun: { 
+            mukhi: 1, 
+            name: 'Surya', 
+            benefits: 'Leadership, confidence, authority',
+            imageUrl: 'https://via.placeholder.com/100?text=1+Mukhi+Rudraksha'
+          },
+          moon: { 
+            mukhi: 2, 
+            name: 'Chandra', 
+            benefits: 'Emotional balance, relationships',
+            imageUrl: 'https://via.placeholder.com/100?text=2+Mukhi+Rudraksha'
+          },
+          mars: { 
+            mukhi: 3, 
+            name: 'Mangal', 
+            benefits: 'Energy, courage, vitality',
+            imageUrl: 'https://via.placeholder.com/100?text=3+Mukhi+Rudraksha'
+          },
+          mercury: { 
+            mukhi: 4, 
+            name: 'Budh', 
+            benefits: 'Intelligence, communication',
+            imageUrl: 'https://via.placeholder.com/100?text=4+Mukhi+Rudraksha'
+          },
+          jupiter: { 
+            mukhi: 5, 
+            name: 'Guru', 
+            benefits: 'Wisdom, prosperity, spirituality',
+            imageUrl: 'https://via.placeholder.com/100?text=5+Mukhi+Rudraksha'
+          },
+          venus: { 
+            mukhi: 6, 
+            name: 'Shukra', 
+            benefits: 'Love, luxury, creativity',
+            imageUrl: 'https://via.placeholder.com/100?text=6+Mukhi+Rudraksha'
+          },
+          saturn: { 
+            mukhi: 7, 
+            name: 'Shani', 
+            benefits: 'Discipline, protection, success',
+            imageUrl: 'https://via.placeholder.com/100?text=7+Mukhi+Rudraksha'
+          },
+          rahu: { 
+            mukhi: 8, 
+            name: 'Rahu', 
+            benefits: 'Obstacle removal, sudden gains',
+            imageUrl: 'https://via.placeholder.com/100?text=8+Mukhi+Rudraksha'
+          },
+          ketu: { 
+            mukhi: 9, 
+            name: 'Ketu', 
+            benefits: 'Spiritual growth, liberation',
+            imageUrl: 'https://via.placeholder.com/100?text=9+Mukhi+Rudraksha'
+          },
+          all: { 
+            mukhi: 10, 
+            name: 'Vishnu', 
+            benefits: 'Overall protection, peace',
+            imageUrl: 'https://via.placeholder.com/100?text=10+Mukhi+Rudraksha'
+          },
+          rudra: { 
+            mukhi: 11, 
+            name: 'Rudra', 
+            benefits: 'Courage, adventure, strength',
+            imageUrl: 'https://via.placeholder.com/100?text=11+Mukhi+Rudraksha'
+          },
+          aditya: { 
+            mukhi: 12, 
+            name: 'Aditya', 
+            benefits: 'Radiance, leadership, fame',
+            imageUrl: 'https://via.placeholder.com/100?text=12+Mukhi+Rudraksha'
+          },
+          kamadeva: { 
+            mukhi: 13, 
+            name: 'Kamadeva', 
+            benefits: 'Fulfillment, desires, attraction',
+            imageUrl: 'https://via.placeholder.com/100?text=13+Mukhi+Rudraksha'
+          },
+          hanuman: { 
+            mukhi: 14, 
+            name: 'Hanuman', 
+            benefits: 'Intuition, divine protection',
+            imageUrl: 'https://via.placeholder.com/100?text=14+Mukhi+Rudraksha'
+          }
+        };
+        
+        this.zodiacSigns = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 
+                           'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+        
+        this.nakshatras = ['Ashwini', 'Bharani', 'Krittika', 'Rohini', 'Mrigashira', 'Ardra',
+                          'Punarvasu', 'Pushya', 'Ashlesha', 'Magha', 'Purva Phalguni', 'Uttara Phalguni',
+                          'Hasta', 'Chitra', 'Swati', 'Vishakha', 'Anuradha', 'Jyeshtha',
+                          'Mula', 'Purva Ashadha', 'Uttara Ashadha', 'Shravana', 'Dhanishta', 'Shatabhisha',
+                          'Purva Bhadrapada', 'Uttara Bhadrapada', 'Revati'];
+        
+        this.cache = new Map();
+        this.initializeEventListeners();
+      }
+      
+      initializeEventListeners() {
+        const form = document.getElementById('userForm');
+        
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (this.validateForm()) {
+            await this.calculate();
+          }
+        });
+      }
+      
+      validateForm() {
+        let isValid = true;
+        const name = document.getElementById('name').value.trim();
+        const dob = document.getElementById('dob').value;
+        const time = document.getElementById('time').value;
+        
+        // Reset error messages
+        document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+        
+        if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
+          document.getElementById('nameError').style.display = 'block';
+          isValid = false;
+        }
+        
+        if (!dob || new Date(dob) > new Date()) {
+          document.getElementById('dobError').style.display = 'block';
+          isValid = false;
+        }
+        
+        if (!time) {
+          document.getElementById('timeError').style.display = 'block';
+          isValid = false;
+        }
+        
+        return isValid;
+      }
+      
+      async calculate() {
+        const userData = this.collectFormData();
+        this.showLoading(true);
+        
+        // Check cache
+        const cacheKey = JSON.stringify(userData);
+        if (this.cache.has(cacheKey)) {
+          this.showLoading(false);
+          this.displayResult(this.cache.get(cacheKey));
+          return;
+        }
+        
+        // Simulate processing time
+        await this.delay(1500);
+        
+        const result = this.simpleCalculation(userData);
+        
+        this.cache.set(cacheKey, result);
+        this.showLoading(false);
+        this.displayResult(result);
+      }
+      
+      collectFormData() {
+        return {
+          name: document.getElementById('name').value.trim(),
+          dob: document.getElementById('dob').value,
+          time: document.getElementById('time').value,
+          place: document.getElementById('place').value.trim(),
+          purpose: document.getElementById('purpose').value,
+          gender: document.getElementById('gender').value
+        };
+      }
+      
+      showLoading(show) {
+        document.getElementById('loading').classList.toggle('active', show);
+        document.getElementById('resultContainer').style.display = show ? 'none' : 'block';
+      }
+      
+      delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      
+      simpleCalculation(user) {
+        const steps = [];
+        const dt = new Date(user.dob + 'T' + user.time);
+        
+        // Life Path Number Calculation
+        const lifePathNumber = this.calculateLifePathNumber(user.dob);
+        steps.push(`Life Path Number: ${lifePathNumber}`);
+        
+        // Name Number Calculation
+        const nameNumber = this.calculateNameNumber(user.name);
+        steps.push(`Name Vibration Number: ${nameNumber}`);
+        
+        // Purpose-based selection
+        let planet = this.getPlanetByPurpose(user.purpose);
+        steps.push(`Purpose (${user.purpose}) suggests: ${planet}`);
+        
+        // Time-based adjustments
+        const hourPlanet = this.getHourPlanet(dt.getHours());
+        steps.push(`Birth hour planetary influence: ${hourPlanet}`);
+        
+        // Vedic day
+        const vara = this.getVedicDay(dt.getDay());
+        steps.push(`Vara (Weekday): ${vara.name} ruled by ${vara.planet}`);
+        
+        // Moon phase
+        const moonPhase = this.calculateMoonPhase(dt);
+        steps.push(`Moon Phase: ${moonPhase.name}`);
+        
+        // Combine factors
+        const planets = [planet, hourPlanet, vara.planet, moonPhase.planet];
+        const finalPlanet = this.harmonizePlanets(planets, lifePathNumber);
+        const rudraksha = this.planetMap[finalPlanet];
+        
+        steps.push(`Final recommendation: ${rudraksha.mukhi} Mukhi (${rudraksha.name})`);
+        
+        return {
+          primary: rudraksha,
+          planet: finalPlanet,
+          compatibility: this.calculateCompatibility(user, finalPlanet),
+          steps: steps,
+          additionalInfo: this.generateSimpleInfo(user, rudraksha)
+        };
+      }
+      
+      // Helper calculation methods
+      calculateLifePathNumber(dob) {
+        const digits = dob.replace(/-/g, '').split('').map(Number);
+        let sum = digits.reduce((a, b) => a + b, 0);
+        while (sum > 9 && sum !== 11 && sum !== 22) {
+          sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
+        }
+        return sum;
+      }
+      
+      calculateNameNumber(name) {
+        const letterValues = {
+          A:1, B:2, C:3, D:4, E:5, F:6, G:7, H:8, I:9,
+          J:1, K:2, L:3, M:4, N:5, O:6, P:7, Q:8, R:9,
+          S:1, T:2, U:3, V:4, W:5, X:6, Y:7, Z:8
+        };
+        const sum = name.toUpperCase().replace(/[^A-Z]/g, '').split('')
+          .reduce((acc, letter) => acc + (letterValues[letter] || 0), 0);
+        return (sum % 9) || 9;
+      }
+      
+      calculateMoonPhase(date) {
+        const newMoon = new Date('2024-01-11');
+        const lunarCycle = 29.53058867;
+        const daysSinceNew = (date - newMoon) / (1000 * 60 * 60 * 24);
+        const phase = (daysSinceNew % lunarCycle) / lunarCycle;
+        
+        const phases = [
+          { name: 'New Moon', planet: 'moon', range: [0, 0.0625] },
+          { name: 'Waxing Crescent', planet: 'mercury', range: [0.0625, 0.1875] },
+          { name: 'First Quarter', planet: 'mars', range: [0.1875, 0.3125] },
+          { name: 'Waxing Gibbous', planet: 'jupiter', range: [0.3125, 0.4375] },
+          { name: 'Full Moon', planet: 'venus', range: [0.4375, 0.5625] },
+          { name: 'Waning Gibbous', planet: 'saturn', range: [0.5625, 0.6875] },
+          { name: 'Last Quarter', planet: 'rahu', range: [0.6875, 0.8125] },
+          { name: 'Waning Crescent', planet: 'ketu', range: [0.8125, 1] }
+        ];
+        
+        const current = phases.find(p => phase >= p.range[0] && phase < p.range[1]) || phases[0];
+        return { ...current, percentage: phase * 100 };
+      }
+      
+      getPlanetByPurpose(purpose) {
+        const purposeMap = {
+          GENERAL: 'all',
+          WEALTH: 'jupiter',
+          CAREER: 'sun',
+          HEALTH: 'mars',
+          EDUCATION: 'mercury',
+          RELATIONSHIPS: 'venus',
+          SPIRITUAL: 'ketu',
+          PROTECTION: 'saturn'
+        };
+        return purposeMap[purpose] || 'all';
+      }
+      
+      getHourPlanet(hour) {
+        const hourPlanets = [
+          'sun', 'venus', 'mercury', 'moon', 'saturn', 'jupiter', 'mars',
+          'sun', 'venus', 'mercury', 'moon', 'saturn', 'jupiter', 'mars',
+          'sun', 'venus', 'mercury', 'moon', 'saturn', 'jupiter', 'mars',
+          'sun', 'venus', 'mercury'
+        ];
+        return hourPlanets[hour % 24];
+      }
+      
+      getVedicDay(day) {
+        const days = [
+          { name: 'Sunday', planet: 'sun' },
+          { name: 'Monday', planet: 'moon' },
+          { name: 'Tuesday', planet: 'mars' },
+          { name: 'Wednesday', planet: 'mercury' },
+          { name: 'Thursday', planet: 'jupiter' },
+          { name: 'Friday', planet: 'venus' },
+          { name: 'Saturday', planet: 'saturn' }
+        ];
+        return days[day];
+      }
+      
+      harmonizePlanets(planets, number) {
+        const weights = {
+          sun: 1, moon: 1, mars: 0.9, mercury: 0.9, jupiter: 1, venus: 0.9, saturn: 0.8,
+          rahu: 0.7, ketu: 0.7, all: 0.6, rudra: 0.6, aditya: 0.6, kamadeva: 0.5, hanuman: 0.5
+        };
+        const planetCounts = {};
+        planets.forEach(p => planetCounts[p] = (planetCounts[p] || 0) + 1);
+        
+        let maxScore = 0;
+        let selectedPlanet = 'all';
+        Object.keys(planetCounts).forEach(p => {
+          const score = planetCounts[p] * weights[p] * (1 + (number % 3) / 10);
+          if (score > maxScore) {
+            maxScore = score;
+            selectedPlanet = p;
+          }
+        });
+        
+        return selectedPlanet;
+      }
+      
+      calculateCompatibility(user, planet) {
+        const baseScore = 70;
+        const purposeMatch = this.getPlanetByPurpose(user.purpose) === planet ? 20 : 0;
+        const nameScore = Math.min(this.calculateNameNumber(user.name), 10);
+        const timeScore = user.time ? 5 : 0;
+        return Math.min(95, baseScore + purposeMatch + nameScore + timeScore);
+      }
+      
+      generateSimpleInfo(user, rudraksha) {
+        const dt = new Date(user.dob + 'T' + user.time);
+        const vara = this.getVedicDay(dt.getDay());
+        return `
+          <p>Wear the ${rudraksha.mukhi} Mukhi Rudraksha on a ${vara.name} or during an auspicious muhurta.</p>
+          <p>Benefits: ${rudraksha.benefits}</p>
+          <p>Recommended mantra: Om Namah Shivaya (chant 108 times daily)</p>
+        `;
+      }
+      
+      displayResult(result) {
+        const mainResult = document.getElementById('mainResult');
+        const scoreFill = document.getElementById('scoreFill');
+        const scoreValue = document.getElementById('scoreValue');
+        const infoGrid = document.getElementById('infoGrid');
+        const stepsContent = document.getElementById('stepsContent');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const additionalInfo = document.getElementById('additionalInfo');
+        
+        mainResult.innerHTML = `
+          <img src="rudraksh.jpg" alt="${result.primary.mukhi} Mukhi Rudraksha" class="rudraksha-image">
+          <div>
+            <span>${result.primary.mukhi} Mukhi Rudraksha (${result.primary.name})</span>
+            <br>
+            <a href="/buy/${result.primary.mukhi}-mukhi-rudraksha" class="buy-now-btn">Buy Now</a>
+          </div>
+        `;
+        scoreFill.style.width = `${result.compatibility}%`;
+        scoreValue.textContent = `${result.compatibility}%`;
+        
+        infoGrid.innerHTML = `
+          <div class="info-item">
+            <div class="info-label">Planet</div>
+            <div class="info-value">${result.planet.charAt(0).toUpperCase() + result.planet.slice(1)}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Benefits</div>
+            <div class="info-value">${result.primary.benefits}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Purpose</div>
+            <div class="info-value">${document.getElementById('purpose').options[document.getElementById('purpose').selectedIndex].text}</div>
+          </div>
+        `;
+        
+        stepsContent.innerHTML = result.steps.map((step, index) => `
+          <div class="step-item">
+            <span class="step-number">${index + 1}</span>
+            ${step}
+          </div>
+        `).join('');
+        
+        stepsContainer.style.display = 'block';
+        additionalInfo.innerHTML = result.additionalInfo;
+        
+        document.getElementById('resultContainer').classList.add('fade-in');
+      }
+    }
+    
+    function resetForm() {
+      document.getElementById('userForm').reset();
+      document.getElementById('resultContainer').style.display = 'none';
+      document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+    }
+    
+    const calculator = new RudrakshaCalculator();
+  </script>
+</body>
+</html>

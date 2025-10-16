@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rudraksha Calculator with Database</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #c0392b;
+        }
+        
+        .result-container {
+            padding: 25px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+        
+        .result-header {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .recommendation {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .rudraksha-type {
+            font-size: 24px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .explanation {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .planet-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff8e1;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .database-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 8px;
+            border-left: 4px solid #7cb342;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-container, .result-container {
+                padding: 20px;
+            }
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rudraksha Calculator</h1>
+            <p class="subtitle">Database-Powered Recommendation System</p>
+        </header>
+        
+        <div class="form-container">
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">Birth Time</label>
+                    <input type="time" id="time" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="place">Birth Place</label>
+                    <input type="text" id="place" placeholder="City, Country" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="purpose">Primary Purpose</label>
+                    <select id="purpose" required>
+                        <option value="">Select your purpose</option>
+                        <option value="GENERAL">General Well-being</option>
+                        <option value="WEALTH">Wealth & Prosperity</option>
+                        <option value="CAREER">Career Growth</option>
+                        <option value="HEALTH">Health & Healing</option>
+                        <option value="SPIRITUAL">Spiritual Growth</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Calculate My Rudraksha</button>
+            </form>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Querying database for your recommendation...</p>
+        </div>
+        
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-header">Your Personalized Recommendation</h2>
+            
+            <div class="recommendation">
+                <p>Based on your birth details and purpose, we recommend:</p>
+                <div class="rudraksha-type" id="rudrakshaResult">5 Mukhi Rudraksha</div>
+                <p>for <span id="purposeResult">General Well-being</span></p>
+            </div>
+            
+            <div class="explanation">
+                <h3>Why this Rudraksha?</h3>
+                <p id="explanationText">The 5 Mukhi Rudraksha is associated with Jupiter (Guru) and is known for promoting wisdom, knowledge, and overall well-being. It helps in balancing the five elements in the body and brings peace and tranquility to the wearer.</p>
+                
+                <div class="planet-info">
+                    <p><strong>Planetary Association:</strong> <span id="planetResult">Jupiter (Guru)</span></p>
+                    <p><strong>Benefits:</strong> <span id="benefitsResult">Enhances wisdom, knowledge, peace, and overall well-being</span></p>
+                </div>
+                
+                <div class="database-info">
+                    <p><strong>Database Query Result:</strong></p>
+                    <p>SELECT * FROM rudraksha_recommendations WHERE purpose='GENERAL' AND month=10 AND time_factor=3 AND place_factor=2;</p>
+                    <p>→ Found 1 matching record: 5 Mukhi Rudraksha</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Note: This calculator provides recommendations based on Vedic astrological principles. For a detailed personal analysis, consult a certified Vedic astrologer.</p>
+        <p>© 2023 Rudraksha Wisdom. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simulated database - In a real application, this would be an actual database
+        const rudrakshaDatabase = {
+            // Purpose-based recommendations
+            WEALTH: {
+                rudraksha: "6 Mukhi",
+                explanation: "The 6 Mukhi Rudraksha is associated with Venus (Shukra) and is known for attracting wealth, luxury, and artistic abilities.",
+                planet: "Venus (Shukra)",
+                benefits: "Attracts wealth, luxury, artistic abilities, and harmony in relationships"
+            },
+            CAREER: {
+                rudraksha: "7 Mukhi",
+                explanation: "The 7 Mukhi Rudraksha is associated with Saturn (Shani) and is known for removing obstacles, providing stability, and enhancing career growth.",
+                planet: "Saturn (Shani)",
+                benefits: "Removes obstacles, provides stability, enhances career growth, and protects from negative energies"
+            },
+            HEALTH: {
+                rudraksha: "2 Mukhi",
+                explanation: "The 2 Mukhi Rudraksha is associated with the Moon (Chandra) and is known for improving mental peace, emotional balance, and overall health.",
+                planet: "Moon (Chandra)",
+                benefits: "Improves mental peace, emotional balance, overall health, and harmony in relationships"
+            },
+            SPIRITUAL: {
+                rudraksha: "1 Mukhi",
+                explanation: "The 1 Mukhi Rudraksha is associated with the Sun (Surya) and is known for enhancing spiritual growth, self-realization, and enlightenment.",
+                planet: "Sun (Surya)",
+                benefits: "Enhances spiritual growth, self-realization, enlightenment, and overall vitality"
+            },
+            
+            // General recommendations based on combined factors
+            GENERAL: [
+                {
+                    factors: { month: [1, 12], time: [0, 6], place: ["delhi", "new delhi"] },
+                    rudraksha: "7 Mukhi",
+                    explanation: "Based on your birth details, the 7 Mukhi Rudraksha is recommended for stability and removing obstacles.",
+                    planet: "Saturn (Shani)",
+                    benefits: "Removes obstacles, provides stability, and protects from negative energies"
+                },
+                {
+                    factors: { month: [5, 6], time: [6, 12], place: ["kolkata", "calcutta"] },
+                    rudraksha: "4 Mukhi",
+                    explanation: "Based on your birth details, the 4 Mukhi Rudraksha is recommended to enhance communication skills and intellectual abilities.",
+                    planet: "Mercury (Budh)",
+                    benefits: "Enhances communication, intellectual abilities, and business skills"
+                },
+                {
+                    factors: { month: [3, 4], time: [12, 18], place: ["mumbai", "bombay"] },
+                    rudraksha: "6 Mukhi",
+                    explanation: "Based on your birth details, the 6 Mukhi Rudraksha is recommended for attracting wealth and harmony.",
+                    planet: "Venus (Shukra)",
+                    benefits: "Attracts wealth, luxury, artistic abilities, and harmony in relationships"
+                },
+                {
+                    factors: { month: [7, 8], time: [18, 24], place: ["chennai", "madras"] },
+                    rudraksha: "8 Mukhi",
+                    explanation: "Based on your birth details, the 8 Mukhi Rudraksha is recommended for overcoming challenges and gaining success.",
+                    planet: "Rahu",
+                    benefits: "Helps overcome challenges, gain success, and protects from unexpected events"
+                },
+                {
+                    factors: { month: [9, 10], time: [0, 24], place: ["bangalore", "bengaluru"] },
+                    rudraksha: "5 Mukhi",
+                    explanation: "Based on your birth details, the 5 Mukhi Rudraksha is recommended for overall well-being and wisdom.",
+                    planet: "Jupiter (Guru)",
+                    benefits: "Enhances wisdom, knowledge, peace, and overall well-being"
+                },
+                {
+                    factors: { month: [11, 2], time: [0, 24], place: ["*"] }, // Default
+                    rudraksha: "9 Mukhi",
+                    explanation: "Based on your birth details, the 9 Mukhi Rudraksha is recommended for spiritual growth and knowledge.",
+                    planet: "Ketu",
+                    benefits: "Enhances spiritual growth, intuition, and knowledge"
+                }
+            ]
+        };
+
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Show loading indicator
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            
+            // Get user data
+            const userData = {
+                name: document.getElementById('name').value,
+                dob: document.getElementById('dob').value,
+                time: document.getElementById('time').value,
+                place: document.getElementById('place').value,
+                purpose: document.getElementById('purpose').value
+            };
+            
+            // Simulate database query delay
+            setTimeout(function() {
+                // Perform calculation
+                const result = calculateRudraksha(userData);
+                
+                // Display results
+                document.getElementById('rudrakshaResult').textContent = result.rudraksha;
+                document.getElementById('purposeResult').textContent = getPurposeText(userData.purpose);
+                document.getElementById('explanationText').textContent = result.explanation;
+                document.getElementById('planetResult').textContent = result.planet;
+                document.getElementById('benefitsResult').textContent = result.benefits;
+                
+                // Update database query info
+                updateDatabaseInfo(userData, result);
+                
+                // Hide loading, show results
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resultContainer').style.display = 'block';
+                
+                // Scroll to results
+                document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+        
+        function calculateRudraksha(userData) {
+            // Extract date components
+            const dob = new Date(userData.dob + "T" + userData.time);
+            const month = dob.getMonth() + 1;
+            const hour = parseInt(userData.time.split(':')[0]);
+            const place = userData.place.toLowerCase();
+            
+            // If specific purpose is selected, return purpose-based recommendation
+            if (userData.purpose !== 'GENERAL') {
+                return rudrakshaDatabase[userData.purpose];
+            }
+            
+            // For GENERAL purpose, find the best match based on factors
+            for (const item of rudrakshaDatabase.GENERAL) {
+                const factors = item.factors;
+                
+                // Check month
+                const monthMatch = factors.month.includes(month) || factors.month[0] === '*';
+                
+                // Check time (convert to time factor groups)
+                let timeMatch = false;
+                if (factors.time[0] === '*') {
+                    timeMatch = true;
+                } else {
+                    for (let i = 0; i < factors.time.length; i += 2) {
+                        if (hour >= factors.time[i] && hour < factors.time[i+1]) {
+                            timeMatch = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Check place
+                let placeMatch = factors.place[0] === '*' || factors.place.includes(place);
+                if (!placeMatch) {
+                    // Check if any place keyword matches
+                    for (const p of factors.place) {
+                        if (place.includes(p)) {
+                            placeMatch = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (monthMatch && timeMatch && placeMatch) {
+                    return item;
+                }
+            }
+            
+            // Default return if no match found
+            return rudrakshaDatabase.GENERAL[rudrakshaDatabase.GENERAL.length - 1];
+        }
+        
+        function getPurposeText(purpose) {
+            const purposes = {
+                'GENERAL': 'General Well-being',
+                'WEALTH': 'Wealth & Prosperity',
+                'CAREER': 'Career Growth',
+                'HEALTH': 'Health & Healing',
+                'SPIRITUAL': 'Spiritual Growth'
+            };
+            return purposes[purpose] || 'General Well-being';
+        }
+        
+        function updateDatabaseInfo(userData, result) {
+            const dob = new Date(userData.dob + "T" + userData.time);
+            const month = dob.getMonth() + 1;
+            const hour = parseInt(userData.time.split(':')[0]);
+            const place = userData.place.toLowerCase();
+            
+            // Determine time factor for display
+            let timeFactor;
+            if (hour >= 0 && hour < 6) timeFactor = 1;
+            else if (hour >= 6 && hour < 12) timeFactor = 2;
+            else if (hour >= 12 && hour < 18) timeFactor = 3;
+            else timeFactor = 4;
+            
+            // Determine place factor for display
+            let placeFactor;
+            if (place.includes('delhi')) placeFactor = 1;
+            else if (place.includes('kolkata') || place.includes('calcutta')) placeFactor = 2;
+            else if (place.includes('mumbai') || place.includes('bombay')) placeFactor = 3;
+            else if (place.includes('chennai') || place.includes('madras')) placeFactor = 4;
+            else if (place.includes('bangalore') || place.includes('bengaluru')) placeFactor = 5;
+            else placeFactor = 6;
+            
+            const dbInfo = document.querySelector('.database-info');
+            dbInfo.innerHTML = `
+                <p><strong>Database Query Result:</strong></p>
+                <p>SELECT * FROM rudraksha_recommendations WHERE purpose='${userData.purpose}' AND month=${month} AND time_factor=${timeFactor} AND place_factor=${placeFactor};</p>
+                <p>→ Found 1 matching record: ${result.rudraksha}</p>
+            `;
+        }
+        
+        // Set today's date as default for the date picker
+        document.getElementById('dob').valueAsDate = new Date();
+    </script>
+</body>
+</html>
