@@ -170,6 +170,57 @@
             box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.3);
         }
 
+        #birthplaceSearch {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1rem;
+        }
+
+        #birthplaceSearch:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.3);
+        }
+
+        .searchable-dropdown {
+            position: relative;
+        }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background:black;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(124, 77, 255, 0.3);
+        }
+
         .btn {
             background: linear-gradient(135deg, var(--accent), var(--secondary));
             color: white;
@@ -495,6 +546,7 @@
                         <label for="name"><i class="fas fa-user"></i> Full Name</label>
                         <input type="text" id="name" placeholder="Enter your full name" required />
                         <div id="nameError" class="error-message">Please enter a valid name</div>
+                        
                     </div>
 
                     <div class="form-group">
@@ -504,9 +556,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="birthplace"><i class="fas fa-map-marker-alt"></i> Place of Birth</label>
-                        <input type="text" id="birthplace" placeholder="City, Country" required />
-                        <div id="placeError" class="error-message">Please enter a valid birth place</div>
+                        <label for="birthplace"><i class="fas fa-map-marker-alt"></i> State of Birth (India)</label>
+                        <div class="searchable-dropdown">
+                            <input type="text" id="birthplaceSearch" placeholder="Search for Indian State..." />
+                            <div id="stateList" class="dropdown-list"></div>
+                        </div>
+                        <input type="hidden" id="birthplace" required />
+                        <div id="placeError" class="error-message">Please select a valid birth place</div>
+                        
                     </div>
 
                     <div class="form-group">
@@ -578,6 +635,107 @@
             const loadingElement = document.getElementById('loading');
             const userForm = document.getElementById('userForm');
             const resultsContainer = document.getElementById('results-container');
+
+            // Indian States and Union Territories
+            const indianStates = [
+                "Andaman and Nicobar Islands",
+                "Andhra Pradesh",
+                "Arunachal Pradesh",
+                "Assam",
+                "Bihar",
+                "Chandigarh",
+                "Chhattisgarh",
+                "Dadra and Nagar Haveli and Daman and Diu",
+                "Delhi",
+                "Goa",
+                "Gujarat",
+                "Haryana",
+                "Himachal Pradesh",
+                "Jammu and Kashmir",
+                "Jharkhand",
+                "Karnataka",
+                "Kerala",
+                "Ladakh",
+                "Lakshadweep",
+                "Madhya Pradesh",
+                "Maharashtra",
+                "Manipur",
+                "Meghalaya",
+                "Mizoram",
+                "Nagaland",
+                "Odisha",
+                "Puducherry",
+                "Punjab",
+                "Rajasthan",
+                "Sikkim",
+                "Tamil Nadu",
+                "Telangana",
+                "Tripura",
+                "Uttar Pradesh",
+                "Uttarakhand",
+                "West Bengal"
+            ];
+
+            // Initialize searchable dropdown
+            function initSearchableDropdown() {
+                const searchInput = document.getElementById('birthplaceSearch');
+                const dropdown = document.getElementById('stateList');
+                const hiddenInput = document.getElementById('birthplace');
+                let filteredStates = indianStates;
+
+                function populateDropdown(states) {
+                    dropdown.innerHTML = states.map(state => 
+                        `<div class="dropdown-item" data-value="${state}">${state}</div>`
+                    ).join('');
+                }
+
+                populateDropdown(filteredStates);
+
+                dropdown.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('dropdown-item')) {
+                        const state = e.target.dataset.value;
+                        searchInput.value = state;
+                        hiddenInput.value = state;
+                        dropdown.style.display = 'none';
+                    }
+                });
+
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    filteredStates = indianStates.filter(state => 
+                        state.toLowerCase().includes(query)
+                    );
+                    populateDropdown(filteredStates);
+                    dropdown.style.display = filteredStates.length ? 'block' : 'none';
+                });
+
+                searchInput.addEventListener('focus', () => {
+                    if (searchInput.value) {
+                        const query = searchInput.value.toLowerCase();
+                        filteredStates = indianStates.filter(state => 
+                            state.toLowerCase().includes(query)
+                        );
+                        populateDropdown(filteredStates);
+                    } else {
+                        populateDropdown(indianStates);
+                    }
+                    dropdown.style.display = 'block';
+                });
+
+                searchInput.addEventListener('blur', () => {
+                    setTimeout(() => {
+                        dropdown.style.display = 'none';
+                    }, 200);
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.style.display = 'none';
+                    }
+                });
+            }
+
+            initSearchableDropdown();
 
             // Set max date to today
             const dobInput = document.getElementById('dob');
