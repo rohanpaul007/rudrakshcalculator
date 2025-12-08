@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Harmony Calculator - Rudraksha & Gems</title>
+    <title>Cosmic Harmony Calculator - Rudraksha & Bracelets</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -39,8 +40,15 @@
         }
 
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .container {
@@ -64,6 +72,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -111,6 +120,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -141,7 +151,8 @@
             color: var(--muted);
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px 15px;
             border-radius: 10px;
@@ -152,7 +163,8 @@
             transition: all 0.3s ease;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.3);
@@ -206,8 +218,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .result-card::before {
@@ -219,8 +236,8 @@
             opacity: 0.1;
         }
 
-        .gem-card::before {
-            content: '💎';
+        .bracelet-card::before {
+            content: '📿';
         }
 
         .result-title {
@@ -239,24 +256,32 @@
         }
 
         .item-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.5s ease;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,200,255,0.4));
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(200, 200, 255, 0.4));
+            overflow: hidden;
+            position: relative;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .item-image:hover {
-            transform: scale(1.05) rotate(5deg);
+            transform: scale(1.05) rotate(2deg);
         }
 
         .item-details {
             flex: 1;
+            min-width: 250px;
         }
 
         .item-name {
@@ -266,6 +291,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+        }
+
+        .item-type {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 10px;
         }
 
         .item-description {
@@ -370,8 +401,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .tooltip {
@@ -423,15 +459,16 @@
             .app-container {
                 flex-direction: column;
             }
-            
-            .input-section, .result-section {
+
+            .input-section,
+            .result-section {
                 width: 100%;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .result-content {
                 flex-direction: column;
                 text-align: center;
@@ -439,42 +476,45 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1><i class="fas fa-gem"></i> Cosmic Harmony Calculator</h1>
-            <p class="tagline">Discover your personalized Rudraksha & Gemstone based on your birth energy signature</p>
+            <p class="tagline">Discover your personalized Rudraksha & Bracelet based on your birth energy signature</p>
         </header>
 
         <div class="app-container">
             <div class="input-section">
                 <h2>Your Birth Details</h2>
-                <p style="margin-bottom: 20px; color: var(--muted);">Enter your information to discover your personal Rudraksha and Gemstone</p>
-                
+                <p style="margin-bottom: 20px; color: var(--muted);">Enter your information to discover your personal
+                    Rudraksha and Bracelet</p>
+
                 <form id="userForm">
                     <div class="form-group">
                         <label for="name"><i class="fas fa-user"></i> Full Name</label>
                         <input type="text" id="name" placeholder="Enter your full name" required />
                         <div id="nameError" class="error-message">Please enter a valid name</div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="dob"><i class="fas fa-calendar-alt"></i> Date of Birth</label>
                         <input type="date" id="dob" required />
                         <div id="dobError" class="error-message">Please enter a valid date of birth</div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="birthplace"><i class="fas fa-map-marker-alt"></i> Place of Birth</label>
                         <input type="text" id="birthplace" placeholder="City, Country" required />
                         <div id="placeError" class="error-message">Please enter a valid birth place</div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="purpose">
                             Primary Purpose
                             <span class="tooltip">ⓘ
-                                <span class="tooltip-text">Select your main intention for wearing Rudraksha and Gemstones</span>
+                                <span class="tooltip-text">Select your main intention for wearing Rudraksha and
+                                    Bracelets</span>
                             </span>
                         </label>
                         <select id="purpose">
@@ -486,14 +526,16 @@
                             <option value="RELATIONSHIPS">Love & Relationships</option>
                             <option value="SPIRITUAL">Spiritual Growth</option>
                             <option value="PROTECTION">Protection & Safety</option>
+                            <option value="SIDDHI">Siddhi & Spiritual Powers</option>
+                            <option value="ARAKSHAN">Arakshan (Protection from Negativity)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="time"><i class="fas fa-clock"></i> Time of Birth (Optional)</label>
                         <input type="time" id="time" />
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="gender">
@@ -502,7 +544,7 @@
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    
+
                     <button type="submit" class="btn" id="calculate-btn">
                         <i class="fas fa-crystal-ball"></i> Calculate My Cosmic Harmony
                     </button>
@@ -514,10 +556,10 @@
                     <div class="results-placeholder">
                         <i class="fas fa-gem"></i>
                         <h3>Your Cosmic Harmony Awaits</h3>
-                        <p>Enter your birth details and click the button to discover your Rudraksha and Gemstone</p>
+                        <p>Enter your birth details and click the button to discover your Rudraksha and Bracelet</p>
                     </div>
                 </div>
-                
+
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
                     <p style="margin-top:12px; color:var(--muted)">Analyzing cosmic patterns...</p>
@@ -526,336 +568,391 @@
         </div>
 
         <footer>
-            <p>Cosmic Harmony Calculator &copy; 2023 | Based on Vedic Astrology, Numerology, and Traditional Principles</p>
+            <p>Cosmic Harmony Calculator &copy; 2023 | Based on Vedic Astrology, Numerology, and Traditional Principles
+            </p>
         </footer>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calculateBtn = document.getElementById('calculate-btn');
-            const resultsContainer = document.getElementById('results-container');
+        document.addEventListener('DOMContentLoaded', function () {
             const loadingElement = document.getElementById('loading');
             const userForm = document.getElementById('userForm');
-            
+            const resultsContainer = document.getElementById('results-container');
+
             // Set max date to today
             const dobInput = document.getElementById('dob');
             const today = new Date().toISOString().split('T')[0];
             dobInput.max = today;
-            
-            // Sample data for gems and rudrakshas
-            const gemsData = {
-                // Traditional Birthstones by Month
-                traditional: {
-                    1: { name: "Garnet", color: "#9A2A2A", icon: "fas fa-gem", properties: ["Protection", "Strength", "Balance"] },
-                    2: { name: "Amethyst", color: "#9966CC", icon: "fas fa-gem", properties: ["Wisdom", "Peace", "Spirituality"] },
-                    3: { name: "Aquamarine", color: "#7FFFD4", icon: "fas fa-gem", properties: ["Courage", "Serenity", "Clarity"] },
-                    4: { name: "Diamond", color: "#FFFFFF", icon: "fas fa-gem", properties: ["Innocence", "Strength", "Purity"] },
-                    5: { name: "Emerald", color: "#50C878", icon: "fas fa-gem", properties: ["Love", "Success", "Growth"] },
-                    6: { name: "Pearl", color: "#F0F0F0", icon: "fas fa-gem", properties: ["Purity", "Intuition", "Emotional Balance"] },
-                    7: { name: "Ruby", color: "#E0115F", icon: "fas fa-gem", properties: ["Passion", "Vitality", "Prosperity"] },
-                    8: { name: "Peridot", color: "#B4C424", icon: "fas fa-gem", properties: ["Power", "Influence", "Protection"] },
-                    9: { name: "Sapphire", color: "#0F52BA", icon: "fas fa-gem", properties: ["Truth", "Wisdom", "Focus"] },
-                    10: { name: "Opal", color: "#A8C3BC", icon: "fas fa-gem", properties: ["Hope", "Creativity", "Inspiration"] },
-                    11: { name: "Topaz", color: "#FFC87C", icon: "fas fa-gem", properties: ["Friendship", "Strength", "Manifestation"] },
-                    12: { name: "Turquoise", color: "#40E0D0", icon: "fas fa-gem", properties: ["Good Fortune", "Prosperity", "Healing"] }
-                },
-                // Zodiac Gems
-                zodiac: {
-                    aries: { name: "Diamond", color: "#FFFFFF", icon: "fas fa-gem", properties: ["Courage", "Strength", "Clarity"] },
-                    taurus: { name: "Emerald", color: "#50C878", icon: "fas fa-gem", properties: ["Love", "Patience", "Harmony"] },
-                    gemini: { name: "Agate", color: "#B5B8B1", icon: "fas fa-gem", properties: ["Balance", "Communication", "Stability"] },
-                    cancer: { name: "Pearl", color: "#F0F0F0", icon: "fas fa-gem", properties: ["Intuition", "Emotional Balance", "Purity"] },
-                    leo: { name: "Ruby", color: "#E0115F", icon: "fas fa-gem", properties: ["Passion", "Confidence", "Vitality"] },
-                    virgo: { name: "Sapphire", color: "#0F52BA", icon: "fas fa-gem", properties: ["Wisdom", "Truth", "Discipline"] },
-                    libra: { name: "Opal", color: "#A8C3BC", icon: "fas fa-gem", properties: ["Balance", "Creativity", "Hope"] },
-                    scorpio: { name: "Topaz", color: "#FFC87C", icon: "fas fa-gem", properties: ["Strength", "Transformation", "Energy"] },
-                    sagittarius: { name: "Turquoise", color: "#40E0D0", icon: "fas fa-gem", properties: ["Good Fortune", "Adventure", "Protection"] },
-                    capricorn: { name: "Garnet", color: "#9A2A2A", icon: "fas fa-gem", properties: ["Strength", "Stability", "Success"] },
-                    aquarius: { name: "Amethyst", color: "#9966CC", icon: "fas fa-gem", properties: ["Wisdom", "Spirituality", "Peace"] },
-                    pisces: { name: "Aquamarine", color: "#7FFFD4", icon: "fas fa-gem", properties: ["Courage", "Serenity", "Intuition"] }
-                }
-            };
-            
+
+            // Rudraksha data with better bead-like images from Unsplash
             const rudrakshaData = {
-                sun: { 
-                    mukhi: 1, 
-                    name: 'Surya', 
-                    benefits: 'Leadership, confidence, authority',
-                    properties: ['Confidence', 'Authority', 'Vitality'],
-                    color: '#FF6B35'
+                1: {
+                    mukhi: 1,
+                    name: 'One Mukhi Rudraksha',
+                    benefits: 'Leadership, confidence, authority, spiritual enlightenment',
+                    properties: ['Confidence', 'Authority', 'Vitality', 'Spiritual Growth'],
+                    color: '#FF6B35',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Shiva himself, brings spiritual enlightenment, removes fear, and enhances leadership qualities.'
                 },
-                moon: { 
-                    mukhi: 2, 
-                    name: 'Chandra', 
-                    benefits: 'Emotional balance, relationships',
-                    properties: ['Emotional Balance', 'Relationships', 'Intuition'],
-                    color: '#4ECDC4'
+                2: {
+                    mukhi: 2,
+                    name: 'Two Mukhi Rudraksha',
+                    benefits: 'Harmony in relationships, emotional balance, unity',
+                    properties: ['Relationships', 'Emotional Balance', 'Unity', 'Harmony'],
+                    color: '#4ECDC4',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Ardhanarishwara (Shiva-Shakti), brings harmony in relationships and emotional stability.'
                 },
-                mars: { 
-                    mukhi: 3, 
-                    name: 'Mangal', 
-                    benefits: 'Energy, courage, vitality',
-                    properties: ['Energy', 'Courage', 'Vitality'],
-                    color: '#C44569'
+                3: {
+                    mukhi: 3,
+                    name: 'Three Mukhi Rudraksha',
+                    benefits: 'Removes guilt, fear, and past life karma, enhances confidence',
+                    properties: ['Confidence', 'Karma Removal', 'Fearlessness', 'Energy'],
+                    color: '#C44569',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Agni (Fire God), removes guilt, fear, and past life karma, enhances confidence and vitality.'
                 },
-                mercury: { 
-                    mukhi: 4, 
-                    name: 'Budh', 
-                    benefits: 'Intelligence, communication',
-                    properties: ['Intelligence', 'Communication', 'Business'],
-                    color: '#F8C291'
+                4: {
+                    mukhi: 4,
+                    name: 'Four Mukhi Rudraksha',
+                    benefits: 'Enhances intelligence, communication, and creativity',
+                    properties: ['Intelligence', 'Communication', 'Creativity', 'Knowledge'],
+                    color: '#F8C291',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Brahma, enhances intelligence, communication skills, creativity, and knowledge.'
                 },
-                jupiter: { 
-                    mukhi: 5, 
-                    name: 'Guru', 
-                    benefits: 'Wisdom, prosperity, spirituality',
-                    properties: ['Wisdom', 'Prosperity', 'Spirituality'],
-                    color: '#546DE5'
+                5: {
+                    mukhi: 5,
+                    name: 'Five Mukhi Rudraksha',
+                    benefits: 'Universal Rudraksha, brings peace, health, and prosperity',
+                    properties: ['Peace', 'Health', 'Prosperity', 'Universal Energy'],
+                    color: '#546DE5',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Kalagni Rudra, most common and powerful, brings peace, health, and overall prosperity.'
                 },
-                venus: { 
-                    mukhi: 6, 
-                    name: 'Shukra', 
-                    benefits: 'Love, luxury, creativity',
-                    properties: ['Love', 'Luxury', 'Creativity'],
-                    color: '#E66767'
+                6: {
+                    mukhi: 6,
+                    name: 'Six Mukhi Rudraksha',
+                    benefits: 'Enhances willpower, removes stress and anxiety',
+                    properties: ['Willpower', 'Stress Relief', 'Focus', 'Determination'],
+                    color: '#E66767',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Kartikeya, enhances willpower, removes stress, anxiety, and improves focus.'
                 },
-                saturn: { 
-                    mukhi: 7, 
-                    name: 'Shani', 
-                    benefits: 'Discipline, protection, success',
-                    properties: ['Discipline', 'Protection', 'Success'],
-                    color: '#786FA6'
+                7: {
+                    mukhi: 7,
+                    name: 'Seven Mukhi Rudraksha',
+                    benefits: 'Brings wealth, prosperity, and removes financial obstacles',
+                    properties: ['Wealth', 'Prosperity', 'Financial Growth', 'Abundance'],
+                    color: '#786FA6',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Goddess Mahalaxmi, brings wealth, prosperity, and removes financial obstacles.'
                 },
-                rahu: { 
-                    mukhi: 8, 
-                    name: 'Rahu', 
-                    benefits: 'Obstacle removal, sudden gains',
-                    properties: ['Obstacle Removal', 'Sudden Gains', 'Transformation'],
-                    color: '#F19066'
+                8: {
+                    mukhi: 8,
+                    name: 'Eight Mukhi Rudraksha',
+                    benefits: 'Removes obstacles, brings success in legal matters',
+                    properties: ['Obstacle Removal', 'Success', 'Legal Matters', 'Justice'],
+                    color: '#F19066',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Ganesha, removes obstacles, brings success in legal matters and court cases.'
                 },
-                ketu: { 
-                    mukhi: 9, 
-                    name: 'Ketu', 
-                    benefits: 'Spiritual growth, liberation',
-                    properties: ['Spiritual Growth', 'Liberation', 'Intuition'],
-                    color: '#574B90'
+                9: {
+                    mukhi: 9,
+                    name: 'Nine Mukhi Rudraksha',
+                    benefits: 'Enhances energy, removes fears, and brings courage',
+                    properties: ['Energy', 'Courage', 'Fearlessness', 'Power'],
+                    color: '#574B90',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Goddess Durga, enhances energy, removes fears, and brings courage and power.'
                 },
-                all: { 
-                    mukhi: 10, 
-                    name: 'Vishnu', 
-                    benefits: 'Overall protection, peace',
-                    properties: ['Overall Protection', 'Peace', 'Harmony'],
-                    color: '#F78FB3'
+                10: {
+                    mukhi: 10,
+                    name: 'Ten Mukhi Rudraksha',
+                    benefits: 'Protection from negative energies, brings overall success',
+                    properties: ['Protection', 'Success', 'Overall Well-being', 'Security'],
+                    color: '#F78FB3',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Vishnu, provides protection from negative energies and brings overall success.'
+                },
+                11: {
+                    mukhi: 11,
+                    name: 'Eleven Mukhi Rudraksha',
+                    benefits: 'Enlightenment, spiritual growth, and divine knowledge',
+                    properties: ['Enlightenment', 'Spiritual Growth', 'Divine Knowledge', 'Wisdom'],
+                    color: '#3DC1D3',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Lord Hanuman, brings enlightenment, spiritual growth, and divine knowledge.'
+                },
+                12: {
+                    mukhi: 12,
+                    name: 'Twelve Mukhi Rudraksha',
+                    benefits: 'Enhances leadership qualities, brings fame and recognition',
+                    properties: ['Leadership', 'Fame', 'Recognition', 'Authority'],
+                    color: '#63CDDA',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Sun God, enhances leadership qualities, brings fame, recognition, and authority.'
+                },
+                13: {
+                    mukhi: 13,
+                    name: 'Thirteen Mukhi Rudraksha',
+                    benefits: 'Fulfills desires, brings prosperity and wealth',
+                    properties: ['Desire Fulfillment', 'Prosperity', 'Wealth', 'Manifestation'],
+                    color: '#778BEB',
+                    image: 'rudraksh.jpg',
+                    description: 'Represents Kamdev, fulfills desires, brings prosperity, wealth, and helps in manifestation.'
+                },
+                14: {
+                    mukhi: 14,
+                    name: 'Fourteen Mukhi Rudraksha',
+                    benefits: 'Divine protection, removes all kinds of fears',
+                    properties: ['Divine Protection', 'Fear Removal', 'Safety', 'Spiritual Shield'],
+                    color: '#CF6A87',
+                    image: './images/14-mukhi-rudraksha.png',
+                    description: 'Represents Lord Shiva as Shiva Himself, provides divine protection and removes all kinds of fears.'
                 }
             };
-            
-            // Zodiac signs with date ranges and icons
-            const zodiacSigns = [
-                { name: "Aries", dates: "Mar 21 - Apr 19", icon: "♈" },
-                { name: "Taurus", dates: "Apr 20 - May 20", icon: "♉" },
-                { name: "Gemini", dates: "May 21 - Jun 20", icon: "♊" },
-                { name: "Cancer", dates: "Jun 21 - Jul 22", icon: "♋" },
-                { name: "Leo", dates: "Jul 23 - Aug 22", icon: "♌" },
-                { name: "Virgo", dates: "Aug 23 - Sep 22", icon: "♍" },
-                { name: "Libra", dates: "Sep 23 - Oct 22", icon: "♎" },
-                { name: "Scorpio", dates: "Oct 23 - Nov 21", icon: "♏" },
-                { name: "Sagittarius", dates: "Nov 22 - Dec 21", icon: "♐" },
-                { name: "Capricorn", dates: "Dec 22 - Jan 19", icon: "♑" },
-                { name: "Aquarius", dates: "Jan 20 - Feb 18", icon: "♒" },
-                { name: "Pisces", dates: "Feb 19 - Mar 20", icon: "♓" }
-            ];
-            
-            // Calculate zodiac sign based on date
-            function getZodiacSign(month, day) {
-                const signs = [
-                    { name: "Capricorn", start: { month: 0, day: 1 }, end: { month: 0, day: 19 } },
-                    { name: "Aquarius", start: { month: 0, day: 20 }, end: { month: 1, day: 18 } },
-                    { name: "Pisces", start: { month: 1, day: 19 }, end: { month: 2, day: 20 } },
-                    { name: "Aries", start: { month: 2, day: 21 }, end: { month: 3, day: 19 } },
-                    { name: "Taurus", start: { month: 3, day: 20 }, end: { month: 4, day: 20 } },
-                    { name: "Gemini", start: { month: 4, day: 21 }, end: { month: 5, day: 20 } },
-                    { name: "Cancer", start: { month: 5, day: 21 }, end: { month: 6, day: 22 } },
-                    { name: "Leo", start: { month: 6, day: 23 }, end: { month: 7, day: 22 } },
-                    { name: "Virgo", start: { month: 7, day: 23 }, end: { month: 8, day: 22 } },
-                    { name: "Libra", start: { month: 8, day: 23 }, end: { month: 9, day: 22 } },
-                    { name: "Scorpio", start: { month: 9, day: 23 }, end: { month: 10, day: 21 } },
-                    { name: "Sagittarius", start: { month: 10, day: 22 }, end: { month: 11, day: 21 } },
-                    { name: "Capricorn", start: { month: 11, day: 22 }, end: { month: 11, day: 31 } }
-                ];
-                
-                for (const sign of signs) {
-                    const startDate = new Date(2000, sign.start.month, sign.start.day);
-                    const endDate = new Date(2000, sign.end.month, sign.end.day);
-                    const birthDate = new Date(2000, month, day);
-                    
-                    if (birthDate >= startDate && birthDate <= endDate) {
-                        return sign.name.toLowerCase();
-                    }
+            // Bracelet data with better bracelet images
+            const braceletData = {
+                SIDDHI: {
+                    name: 'Citrine Bracelet',
+                    type: 'Siddhi & Spiritual Powers',
+                    benefits: 'Enhances spiritual powers, meditation, and enlightenment',
+                    properties: ['Spiritual Powers', 'Meditation', 'Enlightenment', 'Inner Peace'],
+                    color: '#9B59B6',
+                    image: 'siddhi.jpg',
+                    description: 'Specially designed for spiritual seekers, enhances meditation, spiritual powers, and brings enlightenment. Made with 7 Mukhi and 9 Mukhi Rudraksha beads.',
+                    link: 'https://www.treasuresofveda.com/products/citrine'
+                },
+                ARAKSHAN: {
+                    name: 'Amethyst Bracelet',
+                    type: 'Protection from Negativity',
+                    benefits: 'Protects from evil eye, negative energies, and black magic',
+                    properties: ['Protection', 'Negativity Removal', 'Evil Eye Protection', 'Energy Shield'],
+                    color: '#E74C3C',
+                    image: 'Aakarshan.jpg',
+                    description: 'Powerful protective bracelet that shields against evil eye, negative energies, and black magic. Contains 6 Mukhi and 14 Mukhi Rudraksha beads for maximum protection.',
+                    link: 'https://www.treasuresofveda.com/products/amethyst'
+                },
+                WEALTH: {
+                    name: 'Pyrite bracelet',
+                    type: 'Wealth & Prosperity',
+                    benefits: 'Attracts wealth, prosperity, and financial abundance',
+                    properties: ['Wealth', 'Prosperity', 'Financial Growth', 'Abundance'],
+                    color: '#F1C40F',
+                    image: 'artha.jpg',
+                    description: 'Specially crafted to attract wealth, prosperity, and financial abundance. Contains 7 Mukhi Rudraksha beads with gold plating.',
+                    link: 'https://www.treasuresofveda.com/collections/finance'
+                },
+                HEALTH: {
+                    name: 'Moonstone Bracelet',
+                    type: 'Health & Vitality',
+                    benefits: 'Enhances physical health, vitality, and longevity',
+                    properties: ['Health', 'Vitality', 'Longevity', 'Energy'],
+                    color: '#2ECC71',
+                    image: 'santi.jpg',
+                    description: 'Promotes physical health, vitality, and longevity. Made with 5 Mukhi and 12 Mukhi Rudraksha beads known for their healing properties.',
+                    link: 'https://www.treasuresofveda.com/search?q=moonstone+bracelet'
+                },
+                PROTECTION: {
+                    name: 'Green Aventurine Bracelet',
+                    type: 'Protection & Safety',
+                    benefits: 'Provides divine protection during travel and daily activities',
+                    properties: ['Divine Protection', 'Safety', 'Travel Protection', 'Security'],
+                    color: '#3498DB',
+                    image: 'Aakarshan.jpg',
+                    description: 'Offers divine protection during travel and daily activities. Contains a combination of 8 Mukhi and 10 Mukhi Rudraksha beads.',
+                    link: 'https://www.treasuresofveda.com/products/green-aventurrine'
+                },
+                LOVE: {
+                    name: 'Rose Quartz Bracelet',
+                    type: 'Love & Relationships',
+                    benefits: 'Enhances love, harmony in relationships, and emotional balance',
+                    properties: ['Love', 'Harmony', 'Relationships', 'Emotional Balance'],
+                    color: '#E91E63',
+                    image: 'prema.jpg',
+                    description: 'Enhances love, harmony in relationships, and emotional balance. Made with 2 Mukhi and 6 Mukhi Rudraksha beads.',
+                    link: 'https://www.treasuresofveda.com/collections/relationship'
+                },
+                CAREER: {
+                    name: 'Citrine Bracelet',
+                    type: 'Career Growth',
+                    benefits: 'Brings success in career, promotions, and professional growth',
+                    properties: ['Career Success', 'Promotions', 'Professional Growth', 'Opportunities'],
+                    color: '#795548',
+                    image: 'siddhi.jpg',
+                    description: 'Brings success in career, promotions, and professional growth. Contains 1 Mukhi and 12 Mukhi Rudraksha beads for leadership and recognition.',
+                    link: 'https://www.treasuresofveda.com/products/citrine'
+                },
+                SPIRITUAL: {
+                    name: 'Amethyst Bracelet',
+                    type: 'Spiritual Growth',
+                    benefits: 'Accelerates spiritual growth, meditation, and self-realization',
+                    properties: ['Spiritual Growth', 'Meditation', 'Self-Realization', 'Inner Peace'],
+                    color: '#607D8B',
+                    image: 'santulan.webp',
+                    description: 'Accelerates spiritual growth, meditation, and self-realization. Made with 11 Mukhi and 13 Mukhi Rudraksha beads for spiritual enlightenment.',
+                    link: 'https://www.treasuresofveda.com/products/amethyst'
                 }
-                
-                return "capricorn"; // Default fallback
-            }
-            
+            };
+
             // Form validation
             function validateForm() {
                 let isValid = true;
                 const name = document.getElementById('name').value.trim();
                 const dob = document.getElementById('dob').value;
                 const birthplace = document.getElementById('birthplace').value.trim();
-                
+
                 // Reset error messages
                 document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-                
+
                 if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
                     document.getElementById('nameError').style.display = 'block';
                     isValid = false;
                 }
-                
+
                 if (!dob || new Date(dob) > new Date()) {
                     document.getElementById('dobError').style.display = 'block';
                     isValid = false;
                 }
-                
+
                 if (!birthplace) {
                     document.getElementById('placeError').style.display = 'block';
                     isValid = false;
                 }
-                
+
                 return isValid;
             }
-            
+
             // Calculate Life Path Number
             function calculateLifePathNumber(dob) {
                 const digits = dob.replace(/-/g, '').split('').map(Number);
                 let sum = digits.reduce((a, b) => a + b, 0);
+
                 while (sum > 9 && sum !== 11 && sum !== 22) {
                     sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
                 }
+
                 return sum;
             }
-            
+
             // Calculate Name Number
             function calculateNameNumber(name) {
                 const letterValues = {
-                    A:1, B:2, C:3, D:4, E:5, F:6, G:7, H:8, I:9,
-                    J:1, K:2, L:3, M:4, N:5, O:6, P:7, Q:8, R:9,
-                    S:1, T:2, U:3, V:4, W:5, X:6, Y:7, Z:8
+                    A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9, S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
                 };
+
                 const sum = name.toUpperCase().replace(/[^A-Z]/g, '').split('')
                     .reduce((acc, letter) => acc + (letterValues[letter] || 0), 0);
+
                 return (sum % 9) || 9;
             }
-            
-            // Get planet by purpose
-            function getPlanetByPurpose(purpose) {
-                const purposeMap = {
-                    GENERAL: 'all',
-                    WEALTH: 'jupiter',
-                    CAREER: 'sun',
-                    HEALTH: 'mars',
-                    EDUCATION: 'mercury',
-                    RELATIONSHIPS: 'venus',
-                    SPIRITUAL: 'ketu',
-                    PROTECTION: 'saturn'
-                };
-                return purposeMap[purpose] || 'all';
-            }
-            
+
             // Calculate compatibility score
             function calculateCompatibility(user, itemType) {
                 const baseScore = 85;
                 const nameScore = Math.min(calculateNameNumber(user.name), 10);
                 const timeScore = user.time ? 5 : 0;
-                return Math.min(95, baseScore + nameScore + timeScore);
+                const purposeScore = 5; // Bonus for matching purpose
+
+                return Math.min(95, baseScore + nameScore + timeScore + purposeScore);
             }
-            
-            // Generate personalized gem based on user data
-            function calculatePersonalGem(user) {
-                const birthDate = new Date(user.dob);
-                const month = birthDate.getMonth() + 1; // Months are 0-indexed
-                const day = birthDate.getDate();
-                
-                // Get traditional birthstone based on month
-                const traditionalGem = gemsData.traditional[month];
-                
-                // Get zodiac gem based on birth date
-                const zodiacSign = getZodiacSign(birthDate.getMonth(), day);
-                const zodiacGem = gemsData.zodiac[zodiacSign];
-                
-                // For this demo, we'll prioritize the zodiac gem
-                const selectedGem = zodiacGem;
-                
-                // Create a personalized description
-                const descriptions = [
-                    `Based on your birth details, ${selectedGem.name} is your celestial gemstone. This crystal resonates with your unique energy signature and can help amplify your natural strengths.`,
-                    `Your cosmic alignment points to ${selectedGem.name} as your personal gem. This stone connects with your innate qualities and can bring balance to your life.`,
-                    `The stars reveal ${selectedGem.name} as your destined gem. This crystal harmonizes with your birth energy and can enhance your personal journey.`
-                ];
-                
-                const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
-                
-                return {
-                    name: selectedGem.name,
-                    color: selectedGem.color,
-                    icon: selectedGem.icon,
-                    properties: selectedGem.properties,
-                    description: randomDescription,
-                    zodiac: zodiacSign.charAt(0).toUpperCase() + zodiacSign.slice(1),
-                    traditional: traditionalGem.name,
-                    compatibility: calculateCompatibility(user, 'gem')
-                };
-            }
-            
+
             // Generate personalized rudraksha based on user data
             function calculatePersonalRudraksha(user) {
+                const birthDate = new Date(user.dob);
+                const month = birthDate.getMonth() + 1;
+                const day = birthDate.getDate();
+
+                // Calculate based on life path number and name number
                 const lifePathNumber = calculateLifePathNumber(user.dob);
                 const nameNumber = calculateNameNumber(user.name);
-                
-                // Purpose-based selection
-                let planet = getPlanetByPurpose(user.purpose);
-                
-                // Simple algorithm to select rudraksha based on life path and name number
-                const planetKeys = Object.keys(rudrakshaData);
-                const selectedPlanetKey = planetKeys[(lifePathNumber + nameNumber) % planetKeys.length];
-                const selectedRudraksha = rudrakshaData[selectedPlanetKey];
-                
+
+                // Simple algorithm to select rudraksha
+                let rudrakshaKey = ((lifePathNumber + nameNumber) % 14) + 1;
+                if (rudrakshaKey === 0) rudrakshaKey = 5; // Default to 5 Mukhi
+
+                const selectedRudraksha = rudrakshaData[rudrakshaKey];
+
                 // Create a personalized description
                 const descriptions = [
-                    `The ${selectedRudraksha.mukhi} Mukhi Rudraksha is perfectly aligned with your energy. It connects you with ${selectedRudraksha.name} and enhances ${selectedRudraksha.benefits.toLowerCase()}.`,
-                    `Your spiritual path is harmonized with the ${selectedRudraksha.mukhi} Mukhi Rudraksha. This sacred bead brings the blessings of ${selectedRudraksha.name} into your life.`,
-                    `The cosmic calculation reveals the ${selectedRudraksha.mukhi} Mukhi Rudraksha as your spiritual companion. It resonates with ${selectedRudraksha.name} energy for ${selectedRudraksha.benefits.toLowerCase()}.`
+                    `The ${selectedRudraksha.mukhi} Mukhi Rudraksha is perfectly aligned with your energy based on your birth details.`,
+                    `Your cosmic alignment points to the ${selectedRudraksha.name} as your spiritual companion.`,
+                    `The stars reveal ${selectedRudraksha.name} as your destined Rudraksha based on your birth chart.`
                 ];
-                
+
                 const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
-                
+
                 return {
                     mukhi: selectedRudraksha.mukhi,
                     name: selectedRudraksha.name,
                     color: selectedRudraksha.color,
-                    icon: "fas fa-pray",
+                    image: selectedRudraksha.image,
                     properties: selectedRudraksha.properties,
-                    description: randomDescription,
+                    description: `${randomDescription} ${selectedRudraksha.description}`,
                     benefits: selectedRudraksha.benefits,
                     compatibility: calculateCompatibility(user, 'rudraksha')
                 };
             }
-            
-            // Display results
-            function displayResults(gem, rudraksha, userData) {
-                const { name, dob, birthplace } = userData;
-                const birthDate = new Date(dob);
-                const month = birthDate.toLocaleString('default', { month: 'long' });
-                const zodiacSign = gem.zodiac;
-                
+
+            // Generate personalized bracelet based on user data
+            function calculatePersonalBracelet(user) {
+                // Get bracelet based on purpose
+                let braceletType = user.purpose;
+
+                // Handle special purposes
+                if (braceletType === 'SIDDHI' || braceletType === 'ARAKSHAN') {
+                    // Keep as is for special purposes
+                } else if (braceletType === 'GENERAL') {
+                    braceletType = 'PROTECTION'; // Default for general purpose
+                } else if (braceletType === 'RELATIONSHIPS') {
+                    braceletType = 'LOVE';
+                } else if (braceletType === 'EDUCATION') {
+                    braceletType = 'SPIRITUAL'; // Approximate
+                }
+
+                // If bracelet type doesn't exist in data, default to protection
+                if (!braceletData[braceletType]) {
+                    braceletType = 'PROTECTION';
+                }
+
+                const selectedBracelet = braceletData[braceletType];
+
+                // Create a personalized description
+                const descriptions = [
+                    `This ${selectedBracelet.name} is perfectly aligned with your intention for ${selectedBracelet.type.toLowerCase()}.`,
+                    `Your energy signature resonates strongly with the ${selectedBracelet.name} for ${selectedBracelet.type.toLowerCase()}.`,
+                    `The cosmic calculation reveals ${selectedBracelet.name} as your ideal bracelet for ${selectedBracelet.type.toLowerCase()}.`
+                ];
+
+                const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
+
+                return {
+                    name: selectedBracelet.name,
+                    type: selectedBracelet.type,
+                    color: selectedBracelet.color,
+                    image: selectedBracelet.image,
+                    properties: selectedBracelet.properties,
+                    description: `${randomDescription} ${selectedBracelet.description}`,
+                    benefits: selectedBracelet.benefits,
+                    compatibility: calculateCompatibility(user, 'bracelet'),
+                    link: selectedBracelet.link
+                };
+            }
+
+            // Display only two recommendations
+            function displayResults(rudraksha, bracelet) {
                 resultsContainer.innerHTML = `
                     <div class="result-card">
-                        <h3 class="result-title">Your Recommended Rudraksha</h3>
+                        <h3 class="result-title">1. Your Recommended Rudraksha</h3>
                         <div class="result-content">
                             <div class="item-image" style="background: radial-gradient(circle at 30% 30%, ${rudraksha.color}99, ${rudraksha.color}40); border: 2px solid ${rudraksha.color}80;">
-                                <i class="${rudraksha.icon}" style="color: ${rudraksha.color}; text-shadow: 0 0 20px ${rudraksha.color}80;"></i>
+                                <img src="${rudraksha.image}" alt="${rudraksha.name}" loading="lazy">
                             </div>
                             <div class="item-details">
-                                <h2 class="item-name">${rudraksha.mukhi} Mukhi Rudraksha</h2>
+                                <h2 class="item-name">${rudraksha.name}</h2>
+                                <p class="item-type">${rudraksha.mukhi} Mukhi Rudraksha</p>
                                 <p class="item-description">${rudraksha.description}</p>
                                 <div class="item-properties">
                                     ${rudraksha.properties.map(prop => `
@@ -877,63 +974,62 @@
                         </div>
                     </div>
                     
-                    <div class="result-card gem-card">
-                        <h3 class="result-title">Your Recommended Gemstone</h3>
+                    <div class="result-card bracelet-card">
+                        <h3 class="result-title">2. Your Recommended Bracelet</h3>
                         <div class="result-content">
-                            <div class="item-image" style="background: radial-gradient(circle at 30% 30%, ${gem.color}99, ${gem.color}40); border: 2px solid ${gem.color}80;">
-                                <i class="${gem.icon}" style="color: ${gem.color}; text-shadow: 0 0 20px ${gem.color}80;"></i>
-                            </div>
+                            <a href="${bracelet.link}" target="_blank" class="item-image-link">
+                                <div class="item-image" style="background: radial-gradient(circle at 30% 30%, ${bracelet.color}99, ${bracelet.color}40); border: 2px solid ${bracelet.color}80;">
+                                    <img src="${bracelet.image}" alt="${bracelet.name}" loading="lazy">
+                                </div>
+                            </a>
                             <div class="item-details">
-                                <h2 class="item-name">${gem.name}</h2>
-                                <p class="item-description">${gem.description}</p>
+                                <h2 class="item-name">${bracelet.name}</h2>
+                                <p class="item-type">${bracelet.type} Bracelet</p>
+                                <p class="item-description">${bracelet.description}</p>
                                 <div class="item-properties">
-                                    ${gem.properties.map(prop => `
+                                    ${bracelet.properties.map(prop => `
                                         <div class="property">
                                             <i class="fas fa-check-circle"></i>
                                             <span>${prop}</span>
                                         </div>
                                     `).join('')}
                                 </div>
-                                <a href="#" class="buy-now-btn">Buy This Gemstone</a>
+                                <a href="${bracelet.link}" target="_blank" class="buy-now-btn">Buy This Bracelet</a>
                             </div>
                         </div>
                         <div class="compatibility-score">
                             <span class="score-label">Compatibility:</span>
                             <div class="score-bar">
-                                <div class="score-fill" style="width: ${gem.compatibility}%"></div>
+                                <div class="score-fill" style="width: ${bracelet.compatibility}%"></div>
                             </div>
-                            <span class="score-value">${gem.compatibility}%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="result-card">
-                        <h3 class="result-title">Your Cosmic Profile</h3>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
-                            <div class="info-item">
-                                <div class="info-label">Zodiac Sign</div>
-                                <div class="info-value">${gem.zodiac}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Birth Month</div>
-                                <div class="info-value">${month}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Life Path Number</div>
-                                <div class="info-value">${calculateLifePathNumber(dob)}</div>
-                            </div>
+                            <span class="score-value">${bracelet.compatibility}%</span>
                         </div>
                     </div>
                 `;
-            }
-            
-            // Handle form submission
-            userForm.addEventListener('submit', function(e) {
-                e.preventDefault();
                 
+                // Add custom styling for the image link
+                const style = document.createElement('style');
+                style.textContent = `
+                    .item-image-link {
+                        display: contents;
+                        text-decoration: none;
+                    }
+                    .item-image-link:hover .item-image {
+                        transform: scale(1.05) rotate(2deg);
+                        cursor: pointer;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Handle form submission
+            userForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
                 if (!validateForm()) {
                     return;
                 }
-                
+
                 // Collect form data
                 const userData = {
                     name: document.getElementById('name').value.trim(),
@@ -943,26 +1039,31 @@
                     time: document.getElementById('time').value,
                     gender: document.getElementById('gender').value
                 };
-                
+
                 // Show loading state
-                resultsContainer.style.display = 'none';
+                resultsContainer.innerHTML = '';
                 loadingElement.classList.add('active');
-                
+
                 // Simulate calculation delay
                 setTimeout(() => {
-                    const personalGem = calculatePersonalGem(userData);
                     const personalRudraksha = calculatePersonalRudraksha(userData);
-                    
+                    const personalBracelet = calculatePersonalBracelet(userData);
+
                     loadingElement.classList.remove('active');
-                    resultsContainer.style.display = 'block';
-                    displayResults(personalGem, personalRudraksha, userData);
+
+                    displayResults(personalRudraksha, personalBracelet);
                 }, 2000);
             });
-            
-            // Add some sample data for demo purposes
+
+            // Set default date to 30 years ago for demo purposes
+            const defaultDate = new Date();
+            defaultDate.setFullYear(defaultDate.getFullYear() - 30);
+            dobInput.value = defaultDate.toISOString().split('T')[0];
+
+            // Set default name and birthplace for demo
            
         });
     </script>
 </body>
-</html>
 
+</html>
