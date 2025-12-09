@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         :root {
             --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             --card: rgba(255, 255, 255, 0.08);
@@ -26,7 +24,6 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --text: #ffffff;
         }
-
         body {
             background: var(--bg);
             color: var(--text);
@@ -38,19 +35,15 @@
             animation: gradientShift 15s ease infinite;
             background-size: 200% 200%;
         }
-
         @keyframes gradientShift {
-
             0%,
             100% {
                 background-position: 0% 50%;
             }
-
             50% {
                 background-position: 100% 50%;
             }
         }
-
         .container {
             max-width: 1200px;
             width: 100%;
@@ -58,7 +51,6 @@
             flex-direction: column;
             align-items: center;
         }
-
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -66,19 +58,16 @@
             width: 100%;
             animation: fadeInDown 0.8s ease;
         }
-
         @keyframes fadeInDown {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
@@ -88,13 +77,11 @@
             color: transparent;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-
         .tagline {
             font-size: 1.2rem;
             color: var(--muted);
             margin-bottom: 20px;
         }
-
         .app-container {
             display: flex;
             flex-wrap: wrap;
@@ -102,7 +89,6 @@
             justify-content: center;
             width: 100%;
         }
-
         .input-section {
             flex: 1;
             min-width: 300px;
@@ -114,19 +100,16 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             animation: fadeInUp 0.8s ease;
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .result-section {
             flex: 1;
             min-width: 300px;
@@ -139,18 +122,15 @@
             box-shadow: var(--shadow);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--muted);
         }
-
         input,
         select {
             width: 100%;
@@ -162,65 +142,12 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-
         input:focus,
         select:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.3);
         }
-
-        #birthplaceSearch {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            font-size: 1rem;
-        }
-
-        #birthplaceSearch:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.3);
-        }
-
-        .searchable-dropdown {
-            position: relative;
-        }
-
-        .dropdown-list {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background:black;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 10;
-            display: none;
-        }
-
-        .dropdown-item {
-            padding: 12px 15px;
-            cursor: pointer;
-            color: white;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(124, 77, 255, 0.3);
-        }
-
         .btn {
             background: linear-gradient(135deg, var(--accent), var(--secondary));
             color: white;
@@ -235,28 +162,23 @@
             margin-top: 10px;
             box-shadow: 0 4px 15px rgba(124, 77, 255, 0.4);
         }
-
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(124, 77, 255, 0.6);
         }
-
         .btn:active {
             transform: translateY(1px);
         }
-
         .results-placeholder {
             text-align: center;
             color: var(--muted);
             padding: 40px 20px;
         }
-
         .results-placeholder i {
             font-size: 4rem;
             margin-bottom: 20px;
             color: rgba(255, 255, 255, 0.2);
         }
-
         .result-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
             border-left: 4px solid var(--accent);
@@ -267,17 +189,14 @@
             overflow: hidden;
             animation: fadeIn 0.5s ease;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
         }
-
         .result-card::before {
             content: '🕉️';
             position: absolute;
@@ -286,18 +205,15 @@
             font-size: 48px;
             opacity: 0.1;
         }
-
         .bracelet-card::before {
             content: '📿';
         }
-
         .result-title {
             font-size: 20px;
             font-weight: 600;
             color: var(--accent);
             margin-bottom: 16px;
         }
-
         .result-content {
             display: flex;
             align-items: center;
@@ -305,7 +221,6 @@
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
-
         .item-image {
             width: 120px;
             height: 120px;
@@ -319,22 +234,18 @@
             overflow: hidden;
             position: relative;
         }
-
         .item-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .item-image:hover {
             transform: scale(1.05) rotate(2deg);
         }
-
         .item-details {
             flex: 1;
             min-width: 250px;
         }
-
         .item-name {
             font-size: 1.8rem;
             margin-bottom: 5px;
@@ -343,27 +254,23 @@
             background-clip: text;
             color: transparent;
         }
-
         .item-type {
             font-size: 0.9rem;
             color: var(--muted);
             margin-bottom: 10px;
         }
-
         .item-description {
             font-size: 1rem;
             color: var(--muted);
             line-height: 1.5;
             margin-bottom: 10px;
         }
-
         .item-properties {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
-
         .property {
             background: rgba(124, 77, 255, 0.2);
             padding: 8px 12px;
@@ -373,11 +280,9 @@
             align-items: center;
             gap: 6px;
         }
-
         .property i {
             color: var(--accent);
         }
-
         .buy-now-btn {
             background: linear-gradient(135deg, var(--success), #059669);
             color: white;
@@ -390,12 +295,10 @@
             display: inline-block;
             margin-top: 10px;
         }
-
         .buy-now-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(16, 185, 129, 0.3);
         }
-
         .compatibility-score {
             display: flex;
             align-items: center;
@@ -405,12 +308,10 @@
             background: linear-gradient(135deg, rgba(209, 250, 229, 0.2) 0%, rgba(167, 243, 208, 0.2) 100%);
             border-radius: 8px;
         }
-
         .score-label {
             font-weight: 600;
             color: var(--success);
         }
-
         .score-bar {
             flex: 1;
             height: 8px;
@@ -418,29 +319,24 @@
             border-radius: 4px;
             overflow: hidden;
         }
-
         .score-fill {
             height: 100%;
             background: var(--success);
             transition: width 1s ease;
         }
-
         .score-value {
             font-weight: 700;
             color: var(--success);
             font-size: 18px;
         }
-
         .loading {
             display: none;
             text-align: center;
             padding: 20px;
         }
-
         .loading.active {
             display: block;
         }
-
         .spinner {
             display: inline-block;
             width: 40px;
@@ -450,23 +346,19 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
             }
-
             100% {
                 transform: rotate(360deg);
             }
         }
-
         .tooltip {
             position: relative;
             display: inline-block;
             cursor: help;
         }
-
         .tooltip-text {
             visibility: hidden;
             width: 200px;
@@ -484,19 +376,16 @@
             transition: opacity 0.3s;
             font-size: 12px;
         }
-
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
-
         .error-message {
             color: var(--error);
             font-size: 14px;
             margin-top: 8px;
             display: none;
         }
-
         footer {
             margin-top: 40px;
             text-align: center;
@@ -505,21 +394,17 @@
             padding: 20px;
             width: 100%;
         }
-
         @media (max-width: 768px) {
             .app-container {
                 flex-direction: column;
             }
-
             .input-section,
             .result-section {
                 width: 100%;
             }
-
             h1 {
                 font-size: 2.2rem;
             }
-
             .result-content {
                 flex-direction: column;
                 text-align: center;
@@ -527,45 +412,35 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <header>
             <h1><i class="fas fa-gem"></i> Cosmic Harmony Calculator</h1>
             <p class="tagline">Discover your personalized Rudraksha & Bracelet based on your birth energy signature</p>
         </header>
-
         <div class="app-container">
             <div class="input-section">
                 <h2>Your Birth Details</h2>
                 <p style="margin-bottom: 20px; color: var(--muted);">Enter your information to discover your personal
                     Rudraksha and Bracelet</p>
-
                 <form id="userForm">
                     <div class="form-group">
                         <label for="name"><i class="fas fa-user"></i> Full Name</label>
                         <input type="text" id="name" placeholder="Enter your full name" required />
                         <div id="nameError" class="error-message">Please enter a valid name</div>
-                        
+                       
                     </div>
-
                     <div class="form-group">
                         <label for="dob"><i class="fas fa-calendar-alt"></i> Date of Birth</label>
                         <input type="date" id="dob" required />
                         <div id="dobError" class="error-message">Please enter a valid date of birth</div>
                     </div>
-
                     <div class="form-group">
                         <label for="birthplace"><i class="fas fa-map-marker-alt"></i> State of Birth (India)</label>
-                        <div class="searchable-dropdown">
-                            <input type="text" id="birthplaceSearch" placeholder="Search for Indian State..." />
-                            <div id="stateList" class="dropdown-list"></div>
-                        </div>
-                        <input type="hidden" id="birthplace" required />
-                        <div id="placeError" class="error-message">Please select a valid birth place</div>
-                        
+                        <input type="text" id="birthplace" placeholder="Enter Indian State" required />
+                        <div id="placeError" class="error-message">Please enter a valid birth place</div>
+                       
                     </div>
-
                     <div class="form-group">
                         <label for="purpose">
                             Primary Purpose
@@ -587,12 +462,10 @@
                             <option value="ARAKSHAN">Arakshan (Protection from Negativity)</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="time"><i class="fas fa-clock"></i> Time of Birth (Optional)</label>
                         <input type="time" id="time" />
                     </div>
-
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="gender">
@@ -601,13 +474,11 @@
                             <option value="other">Other</option>
                         </select>
                     </div>
-
                     <button type="submit" class="btn" id="calculate-btn">
                         <i class="fas fa-crystal-ball"></i> Calculate My Cosmic Harmony
                     </button>
                 </form>
             </div>
-
             <div class="result-section">
                 <div id="results-container">
                     <div class="results-placeholder">
@@ -616,132 +487,26 @@
                         <p>Enter your birth details and click the button to discover your Rudraksha and Bracelet</p>
                     </div>
                 </div>
-
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
                     <p style="margin-top:12px; color:var(--muted)">Analyzing cosmic patterns...</p>
                 </div>
             </div>
         </div>
-
         <footer>
             <p>Cosmic Harmony Calculator &copy; 2023 | Based on Vedic Astrology, Numerology, and Traditional Principles
             </p>
         </footer>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const loadingElement = document.getElementById('loading');
             const userForm = document.getElementById('userForm');
             const resultsContainer = document.getElementById('results-container');
-
-            // Indian States and Union Territories
-            const indianStates = [
-                "Andaman and Nicobar Islands",
-                "Andhra Pradesh",
-                "Arunachal Pradesh",
-                "Assam",
-                "Bihar",
-                "Chandigarh",
-                "Chhattisgarh",
-                "Dadra and Nagar Haveli and Daman and Diu",
-                "Delhi",
-                "Goa",
-                "Gujarat",
-                "Haryana",
-                "Himachal Pradesh",
-                "Jammu and Kashmir",
-                "Jharkhand",
-                "Karnataka",
-                "Kerala",
-                "Ladakh",
-                "Lakshadweep",
-                "Madhya Pradesh",
-                "Maharashtra",
-                "Manipur",
-                "Meghalaya",
-                "Mizoram",
-                "Nagaland",
-                "Odisha",
-                "Puducherry",
-                "Punjab",
-                "Rajasthan",
-                "Sikkim",
-                "Tamil Nadu",
-                "Telangana",
-                "Tripura",
-                "Uttar Pradesh",
-                "Uttarakhand",
-                "West Bengal"
-            ];
-
-            // Initialize searchable dropdown
-            function initSearchableDropdown() {
-                const searchInput = document.getElementById('birthplaceSearch');
-                const dropdown = document.getElementById('stateList');
-                const hiddenInput = document.getElementById('birthplace');
-                let filteredStates = indianStates;
-
-                function populateDropdown(states) {
-                    dropdown.innerHTML = states.map(state => 
-                        `<div class="dropdown-item" data-value="${state}">${state}</div>`
-                    ).join('');
-                }
-
-                populateDropdown(filteredStates);
-
-                dropdown.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('dropdown-item')) {
-                        const state = e.target.dataset.value;
-                        searchInput.value = state;
-                        hiddenInput.value = state;
-                        dropdown.style.display = 'none';
-                    }
-                });
-
-                searchInput.addEventListener('input', (e) => {
-                    const query = e.target.value.toLowerCase();
-                    filteredStates = indianStates.filter(state => 
-                        state.toLowerCase().includes(query)
-                    );
-                    populateDropdown(filteredStates);
-                    dropdown.style.display = filteredStates.length ? 'block' : 'none';
-                });
-
-                searchInput.addEventListener('focus', () => {
-                    if (searchInput.value) {
-                        const query = searchInput.value.toLowerCase();
-                        filteredStates = indianStates.filter(state => 
-                            state.toLowerCase().includes(query)
-                        );
-                        populateDropdown(filteredStates);
-                    } else {
-                        populateDropdown(indianStates);
-                    }
-                    dropdown.style.display = 'block';
-                });
-
-                searchInput.addEventListener('blur', () => {
-                    setTimeout(() => {
-                        dropdown.style.display = 'none';
-                    }, 200);
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
-                        dropdown.style.display = 'none';
-                    }
-                });
-            }
-
-            initSearchableDropdown();
-
             // Set max date to today
             const dobInput = document.getElementById('dob');
             const today = new Date().toISOString().split('T')[0];
             dobInput.max = today;
-
             // Rudraksha data with better bead-like images from Unsplash
             const rudrakshaData = {
                 1: {
@@ -954,94 +719,73 @@
                     link: 'https://www.treasuresofveda.com/products/amethyst'
                 }
             };
-
             // Form validation
             function validateForm() {
                 let isValid = true;
                 const name = document.getElementById('name').value.trim();
                 const dob = document.getElementById('dob').value;
                 const birthplace = document.getElementById('birthplace').value.trim();
-
                 // Reset error messages
                 document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-
                 if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
                     document.getElementById('nameError').style.display = 'block';
                     isValid = false;
                 }
-
                 if (!dob || new Date(dob) > new Date()) {
                     document.getElementById('dobError').style.display = 'block';
                     isValid = false;
                 }
-
                 if (!birthplace) {
                     document.getElementById('placeError').style.display = 'block';
                     isValid = false;
                 }
-
                 return isValid;
             }
-
             // Calculate Life Path Number
             function calculateLifePathNumber(dob) {
                 const digits = dob.replace(/-/g, '').split('').map(Number);
                 let sum = digits.reduce((a, b) => a + b, 0);
-
                 while (sum > 9 && sum !== 11 && sum !== 22) {
                     sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
                 }
-
                 return sum;
             }
-
             // Calculate Name Number
             function calculateNameNumber(name) {
                 const letterValues = {
                     A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9, S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
                 };
-
                 const sum = name.toUpperCase().replace(/[^A-Z]/g, '').split('')
                     .reduce((acc, letter) => acc + (letterValues[letter] || 0), 0);
-
                 return (sum % 9) || 9;
             }
-
             // Calculate compatibility score
             function calculateCompatibility(user, itemType) {
                 const baseScore = 85;
                 const nameScore = Math.min(calculateNameNumber(user.name), 10);
                 const timeScore = user.time ? 5 : 0;
                 const purposeScore = 5; // Bonus for matching purpose
-
                 return Math.min(95, baseScore + nameScore + timeScore + purposeScore);
             }
-
             // Generate personalized rudraksha based on user data
             function calculatePersonalRudraksha(user) {
                 const birthDate = new Date(user.dob);
                 const month = birthDate.getMonth() + 1;
                 const day = birthDate.getDate();
-
                 // Calculate based on life path number and name number
                 const lifePathNumber = calculateLifePathNumber(user.dob);
                 const nameNumber = calculateNameNumber(user.name);
-
                 // Simple algorithm to select rudraksha
                 let rudrakshaKey = ((lifePathNumber + nameNumber) % 14) + 1;
                 if (rudrakshaKey === 0) rudrakshaKey = 5; // Default to 5 Mukhi
-
                 const selectedRudraksha = rudrakshaData[rudrakshaKey];
-
                 // Create a personalized description
                 const descriptions = [
                     `The ${selectedRudraksha.mukhi} Mukhi Rudraksha is perfectly aligned with your energy based on your birth details.`,
                     `Your cosmic alignment points to the ${selectedRudraksha.name} as your spiritual companion.`,
                     `The stars reveal ${selectedRudraksha.name} as your destined Rudraksha based on your birth chart.`
                 ];
-
                 const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
-
                 return {
                     mukhi: selectedRudraksha.mukhi,
                     name: selectedRudraksha.name,
@@ -1053,12 +797,10 @@
                     compatibility: calculateCompatibility(user, 'rudraksha')
                 };
             }
-
             // Generate personalized bracelet based on user data
             function calculatePersonalBracelet(user) {
                 // Get bracelet based on purpose
                 let braceletType = user.purpose;
-
                 // Handle special purposes
                 if (braceletType === 'SIDDHI' || braceletType === 'ARAKSHAN') {
                     // Keep as is for special purposes
@@ -1069,23 +811,18 @@
                 } else if (braceletType === 'EDUCATION') {
                     braceletType = 'SPIRITUAL'; // Approximate
                 }
-
                 // If bracelet type doesn't exist in data, default to protection
                 if (!braceletData[braceletType]) {
                     braceletType = 'PROTECTION';
                 }
-
                 const selectedBracelet = braceletData[braceletType];
-
                 // Create a personalized description
                 const descriptions = [
                     `This ${selectedBracelet.name} is perfectly aligned with your intention for ${selectedBracelet.type.toLowerCase()}.`,
                     `Your energy signature resonates strongly with the ${selectedBracelet.name} for ${selectedBracelet.type.toLowerCase()}.`,
                     `The cosmic calculation reveals ${selectedBracelet.name} as your ideal bracelet for ${selectedBracelet.type.toLowerCase()}.`
                 ];
-
                 const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
-
                 return {
                     name: selectedBracelet.name,
                     type: selectedBracelet.type,
@@ -1098,7 +835,6 @@
                     link: selectedBracelet.link
                 };
             }
-
             // Display only two recommendations
             function displayResults(rudraksha, bracelet) {
                 resultsContainer.innerHTML = `
@@ -1131,7 +867,7 @@
                             <span class="score-value">${rudraksha.compatibility}%</span>
                         </div>
                     </div>
-                    
+                   
                     <div class="result-card bracelet-card">
                         <h3 class="result-title">2. Your Recommended Bracelet</h3>
                         <div class="result-content">
@@ -1164,7 +900,7 @@
                         </div>
                     </div>
                 `;
-                
+               
                 // Add custom styling for the image link
                 const style = document.createElement('style');
                 style.textContent = `
@@ -1179,15 +915,12 @@
                 `;
                 document.head.appendChild(style);
             }
-
             // Handle form submission
             userForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-
                 if (!validateForm()) {
                     return;
                 }
-
                 // Collect form data
                 const userData = {
                     name: document.getElementById('name').value.trim(),
@@ -1197,31 +930,24 @@
                     time: document.getElementById('time').value,
                     gender: document.getElementById('gender').value
                 };
-
                 // Show loading state
                 resultsContainer.innerHTML = '';
                 loadingElement.classList.add('active');
-
                 // Simulate calculation delay
                 setTimeout(() => {
                     const personalRudraksha = calculatePersonalRudraksha(userData);
                     const personalBracelet = calculatePersonalBracelet(userData);
-
                     loadingElement.classList.remove('active');
-
                     displayResults(personalRudraksha, personalBracelet);
                 }, 2000);
             });
-
             // Set default date to 30 years ago for demo purposes
             const defaultDate = new Date();
             defaultDate.setFullYear(defaultDate.getFullYear() - 30);
             dobInput.value = defaultDate.toISOString().split('T')[0];
-
             // Set default name and birthplace for demo
-           
+          
         });
     </script>
 </body>
-
 </html>
